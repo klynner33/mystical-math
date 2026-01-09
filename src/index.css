@@ -10,6 +10,12 @@ body{
   
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
 
 /* -----------------------HOME SCREEN--------------------------- */
 
@@ -25,6 +31,15 @@ body{
   align-items: flex-end;
   padding-bottom: 50px;
 }
+
+.main-screen img {
+  max-width: 100%;
+  height: auto;
+}
+
+.mobile-hero {
+  display: none;
+} 
 
 .choose-game-modal {
   background-color: #26547C;
@@ -492,7 +507,6 @@ main {
   border-radius: 8px;
   width: 50px;
   height: 50px;
-  /* padding: 8px 12px; */
   font-size: 28px;
   cursor: pointer;
   box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
@@ -720,19 +734,6 @@ main {
   padding: 8px 12px;
   cursor: pointer;
 }
-
-/* .inventory-card.placeholder {
-  background: rgba(255, 255, 255, 0.05);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.inventory-card.placeholder:hover {
-  transform: none;
-  box-shadow: none;
-  cursor: default;
-} */
 
 .inventory-empty-message {
   text-align: center;
@@ -983,15 +984,12 @@ main {
   right: 24px;
   width: 95px; 
   height: 18px;
-  /* overflow: hidden; */
-  /* border: 1px solid green; */
 }
 .powerbar-fill {
   position: absolute;
   bottom: 4px;
   right: 4px;
   height: 14px;
-  /* width: 90%; */
   background: linear-gradient(
     90deg,
     #00ffff,
@@ -1002,7 +1000,6 @@ main {
   box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
   transition: width 0.5s ease-in-out;
   z-index: 1;
-  /* border: 1px solid red; */
 }
 
 .wizard-battle-powerbars {
@@ -1020,13 +1017,6 @@ main {
   position: relative;
   top: 50px;
   left: 80px;
-  width: 200px
-}
-
-.battle-powerbar-wrapper {
-  position: relative;
-  top: 50px;
-  left: 80px;
   width: 200px;
   height: 50px;
 }
@@ -1038,4 +1028,286 @@ main {
     #ff5e00,
     #ffa600
   );
+}
+
+
+/* -----------------------RESPONSIVE DESIGN--------------------------- */
+
+@media (max-width: 768px) {
+
+  /* ---------- HOME ---------- */
+
+  .main-screen {
+    background: #00a19b;
+    padding-bottom: 20px;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .mobile-hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: auto;
+  }
+
+
+  .choose-game-modal {
+    position: absolute;
+  }
+
+  .choose-game-modal > main {
+    padding: 30px;
+  }
+
+  .choose-operation-text {
+    padding-top: 20px;
+  }
+
+  .add-subtract-buttons,
+  .multiply-divide-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .game-button {
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  .footer {
+    text-align: center;
+  }
+
+  /* ---------- HEADER ---------- */
+
+  .header {
+    height: auto;
+    flex-direction: column;
+    padding: 10px 0;
+  }
+
+  .header .header-hero {
+    height: 90px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+    height: auto;
+    margin: 10px 0;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  /* ---------- MAIN GAME LAYOUT ---------- */
+
+  main {
+    padding: 10px;
+  }
+
+  .game-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .top-info-bar {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .info-text {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  /* ---------- SCORE ---------- */
+
+  .score-container {
+    width: 100%;
+    align-items: center;
+  }
+
+  .score-container > p {
+    font-size: 22px;
+  }
+
+  .chest-key-container {
+    justify-content: center;
+  }
+
+  .key {
+    position: static;
+    height: 100px;
+    margin-top: 10px;
+  }
+
+  /* ---------- EQUATION ---------- */
+
+  .equation-container {
+    width: 100%;
+    height: auto;
+  }
+
+  .equation {
+    font-size: 36px;
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .multiple-choice {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .answer-button {
+    width: 55px;
+    height: 55px;
+    font-size: 22px;
+  }
+
+  /* ---------- HINT ---------- */
+
+  .hint-container,
+  .chart-container {
+    width: 100%;
+    justify-content: center;
+    height: auto;
+  }
+
+  .hint img {
+    width: 140px;
+  }
+
+  .chart {
+    width: 100%;
+  }
+
+  .chart-image {
+    width: 100%;
+  }
+
+  /* ---------- MODALS ---------- */
+
+  .feedback-modal {
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30%;
+    height: auto;
+    padding: 20px;
+    font-size: 18px;
+  }
+
+  .battle-overlay {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .battle-overlay h1 {
+    font-size: 1.4rem;
+  }
+
+  .battle-button {
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
+
+  /* ---------- INVENTORY ---------- */
+
+  .inventory-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .inventory-card {
+    height: auto;
+  }
+
+  .inventory-modal-image {
+    height: 200px;
+  }
+
+  /* ---------- WIZARD BATTLE ---------- */
+
+  .wizard-image-wrapper {
+    height: 280px;
+  }
+
+  .game-over-overlay h1 {
+    font-size: 36px;
+  }
+
+  .game-over-overlay p {
+    font-size: 16px;
+  }
+
+  .after-battle-text {
+    font-size: 22px;
+    width: 90%;
+    text-align: center;
+  }
+
+  /* ---------- POWER BARS ---------- */
+
+  .wizard-battle-powerbars {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .powerbar-container,
+  .wizard-powerbar-container {
+    position: static;
+    transform: none;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .equation {
+    font-size: 28px;
+  }
+
+  .game-button {
+    font-size: 16px;
+  }
+
+  .header h1 {
+    font-size: 18px;
+  }
+
+  .nav-links li {
+    font-size: 14px;
+  }
+
+  .battle-overlay h1 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 426px) {
+
+  .main-screen {
+    gap: 10px;
+  }
+
+  .mobile-hero {
+    width: 60%;
+    flex-direction: column;
+  }
+
+  .choose-operation-text {
+    font-size: 20px;
+  }
 }
