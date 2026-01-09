@@ -1,0 +1,18 @@
+import GameEngine from "../components/GameEngine.jsx";
+import additionChart from "../assets/charts/addition-chart.png";
+import spellbook from "../assets/inventory-images/extra-images/earth-spellbook.png";
+
+export default function AdditionGame() {
+  return (
+    <GameEngine
+      operator="+"
+      chart={additionChart}
+      spellbook={spellbook}
+      generateNumbers={() => ({
+        top: Math.floor(Math.random() * 13),
+        bottom: Math.floor(Math.random() * 13),
+      })}
+      checkCorrect={(top, bottom, value) => value === top + bottom}
+    />
+  );
+}
