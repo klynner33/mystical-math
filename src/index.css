@@ -980,7 +980,7 @@ main {
   justify-content: center;
   position: absolute;
   bottom: 0px;
-  right: 80px;
+  right: 80%;
   transform: translateY(10px)
 }
 
@@ -990,7 +990,7 @@ main {
   justify-content: center;
   position: absolute;
   bottom: 0px;
-  right: 400px;
+  right: 20%;
   transform: translateY(60px)
 }
 
@@ -1353,15 +1353,12 @@ main {
 
   /* ---------- POWER BARS ---------- */
 
-  .wizard-battle-powerbars {
-    flex-direction: column;
-    gap: 20px;
+  .powerbar-container {
+    right: 85%;
   }
 
-  .powerbar-container,
   .wizard-powerbar-container {
-    position: static;
-    transform: none;
+    right: 15%;
   }
 }
 
@@ -1409,6 +1406,14 @@ main {
     right: 5%;
   }
 
+    /* .powerbar-container {
+    right: 99%;
+  }
+
+  .wizard-powerbar-container {
+    right: 1%;
+  } */
+
 @media (max-width: 426px) {
 
   .main-screen {
@@ -1433,10 +1438,35 @@ main {
   }
 
   .hint img {
-        width: 80px;
-    }
+    width: 80px;
+  }
 
-   .key-text {
+  .key-text {
     right: 1%;
   }
+
+  .powerbar-container .charge-text {
+    font-size: 10px;
+  }
+
+  .wizard-powerbar-container .charge-text {
+    font-size: 10px;
+  }
+
+  .wizard-image-wrapper, .battle-button-container{
+    transform: translateY(80px);
+  }
+
+  .wizard-battle-powerbars {
+    transform: translateY(20px);
+  }
+
+  .powerbar-container {
+    right: 95%;
+  }
+
+  .wizard-powerbar-container {
+    right: 5%;
+  }
+
 }
