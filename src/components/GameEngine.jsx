@@ -79,7 +79,6 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
 
   function handleTouchStart(e) {
     const touch = e.touches[0];
-    if (!keyRef.current) return;
     const keyRect = keyRef.current.getBoundingClientRect();
     touchOffsetRef.current = {
       x: touch.clientX - keyRect.left,
@@ -89,8 +88,7 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
   }
 
   function handleTouchMove(e) {
-  if (!dragging || !keyRef.current) return;
-    if (!keyRef.current) return;
+    if (!dragging) return;
     const touch = e.touches[0];
     keyRef.current.style.position = "absolute";
     keyRef.current.style.left = `${touch.clientX - touchOffsetRef.current.x}px`;
@@ -100,9 +98,9 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
 
   function handleTouchEnd(e) {
     if (!dragging) return;
-    if (!keyRef.current || !chestRef.current) return;
     setDragging(false);
 
+    if (!keyRef.current || !chestRef.current) return;
     const keyRect = keyRef.current.getBoundingClientRect();
     const chestRect = chestRef.current.getBoundingClientRect();
 
@@ -245,7 +243,7 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
               <img
                 src={key}
                 className="key key-animate"
-                draggable={true} // still works on desktop
+                draggable={true}
                 onDragStart={(e) =>
                   e.dataTransfer.setData("text/plain", "bronzeKey")
                 }
