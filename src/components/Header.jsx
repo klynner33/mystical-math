@@ -12,6 +12,8 @@ export default function Header() {
   );
 
   const [mysticCharge, setMysticCharge] = useState(inventoryCharge);
+  const [menuOpen, setMenuOpen] = useState(false);
+
 
   useEffect(() => {
     setMysticCharge(inventoryCharge);
@@ -31,23 +33,46 @@ export default function Header() {
         <h1>Practice your math facts to earn magical creatures and items!</h1>
         <div className="links-powerbar-container">
           <div className="hamb-menu-container">
-            <button className="nav-hamb-menu">☰</button>
+            <button
+              className="nav-hamb-menu"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-expanded={menuOpen}
+              aria-label="Toggle navigation"
+            >
+              ☰
+            </button>
           </div>
-          <ul className="nav-links">
+          <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
             <li className="home-link">
-              <NavLink to="/">Home</NavLink>
+              <NavLink to="/" onClick={() => setMenuOpen(false)}>
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/addition-game">Addition</NavLink>
+              <NavLink to="/addition-game" onClick={() => setMenuOpen(false)}>
+                Addition
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/subtraction-game">Subtraction</NavLink>
+              <NavLink
+                to="/subtraction-game"
+                onClick={() => setMenuOpen(false)}
+              >
+                Subtraction
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/multiplication-game">Multiplication</NavLink>
+              <NavLink
+                to="/multiplication-game"
+                onClick={() => setMenuOpen(false)}
+              >
+                Multiplication
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/division-game">Division</NavLink>
+              <NavLink to="/division-game" onClick={() => setMenuOpen(false)}>
+                Division
+              </NavLink>
             </li>
           </ul>
           <div className="header-powerbar-container">

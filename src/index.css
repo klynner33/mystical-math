@@ -173,7 +173,6 @@ html, body {
   justify-content: center;
   align-items: flex-end;
   list-style: none;
-  justify-content: center;
   gap: 20px;
   padding-bottom: 10px;
   height: 50%;
@@ -746,7 +745,7 @@ main {
 
 .reset-inventory-btn {
   position: absolute;
-  top: 10px;
+  bottom: 10px;
   right: 10px;
   background-color: #D97818;
   color: white;
@@ -956,11 +955,11 @@ main {
   height: 25px;
   background: radial-gradient(circle, cyan, blue);
   border-radius: 50%;
-  animation: shoot 0.5s linear forwards;
+  animation: shoot-desktop 0.5s linear forwards;
   z-index: 5;
 }
 
-@keyframes shoot {
+@keyframes shoot-desktop {
   0% {
     transform: translate(0, 0) scale(1);
     opacity: 1;
@@ -970,6 +969,40 @@ main {
     opacity: 0;
   }
 }
+
+@keyframes shoot-tablet {
+  0% {
+    transform: translate(-150px, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(200px, 200px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes shoot-mobile {
+  0% {
+    transform: translate(-150px, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(150px, 200px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes shoot-mobile-small {
+  0% {
+    transform: translate(-150px, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(50px, 200px) scale(0.5);
+    opacity: 0;
+  }
+}
+
 
 
 /* -----------------------POWER BARS--------------------------- */
@@ -1079,8 +1112,11 @@ main {
     padding: 1rem;
   }
 
-  .nav-links.active {
+  .nav-links.open {
     display: flex;
+    z-index: 1000;
+    width: 200px;
+    height: auto;
   }
 
   .nav-hamb-menu {
@@ -1101,6 +1137,10 @@ main {
 
   .top-info-bar .info-text, .inventory-link-container p {
     font-size: 14px;
+  }
+
+  .mystic-shot {
+    animation: shoot-tablet 0.5s linear forwards;
   }
 
 }
@@ -1171,6 +1211,23 @@ main {
     font-size: 14px;
     height: auto;
     margin: 10px 0;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .nav-links.open {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #111;
+    z-index: 1000;
   }
 
 
@@ -1323,10 +1380,6 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
-  .inventory-card {
-    height: auto;
-  }
-
   .inventory-modal-image {
     height: 200px;
   }
@@ -1334,7 +1387,7 @@ main {
   /* ---------- WIZARD BATTLE ---------- */
 
   .wizard-image-wrapper {
-    height: 280px;
+    height: 375px;
   }
 
   .game-over-overlay h1 {
@@ -1349,6 +1402,10 @@ main {
     font-size: 22px;
     width: 90%;
     text-align: center;
+  }
+
+  .mystic-shot {
+    animation: shoot-mobile-small 0.5s linear forwards;
   }
 
   /* ---------- POWER BARS ---------- */
@@ -1388,7 +1445,6 @@ main {
   .battle-overlay h1 {
     font-size: 1.2rem;
   }
-}
 
   .wooden-door {
     width: 50px;
@@ -1406,13 +1462,19 @@ main {
     right: 5%;
   }
 
-    /* .powerbar-container {
-    right: 99%;
+  .wizard-image-wrapper{
+    margin-top: 50px;
   }
 
-  .wizard-powerbar-container {
-    right: 1%;
-  } */
+  .wizard-battle-powerbars {
+    margin-top: 20px;
+  }
+
+  .mystic-shot {
+    animation: shoot-mobile-small 0.5s linear forwards;
+  }
+
+}
 
 @media (max-width: 426px) {
 
@@ -1430,7 +1492,7 @@ main {
   }
 
   .inventory-link-container {
-    flex-direction: column;;
+    flex-direction: column;
   }
 
   .header h1 {
@@ -1451,14 +1513,6 @@ main {
 
   .wizard-powerbar-container .charge-text {
     font-size: 10px;
-  }
-
-  .wizard-image-wrapper, .battle-button-container{
-    transform: translateY(80px);
-  }
-
-  .wizard-battle-powerbars {
-    transform: translateY(20px);
   }
 
   .powerbar-container {
