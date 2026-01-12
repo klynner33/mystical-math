@@ -24,7 +24,8 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
   const keyRef = useRef(null);
   const chestRef = useRef(null);
   const [dragging, setDragging] = useState(false);
-  const [touchOffset, setTouchOffset] = useState({ x: 0, y: 0 });
+  
+  const touchOffsetRef = useRef({ x: 0, y: 0 });
 
   const topNumber = numbers.top;
   const bottomNumber = numbers.bottom;
@@ -78,22 +79,23 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
 
   function handleTouchStart(e) {
     const touch = e.touches[0];
+    if (!keyRef.current) return;
     const keyRect = keyRef.current.getBoundingClientRect();
-    setTouchOffset({
+    touchOffsetRef.current = {
       x: touch.clientX - keyRect.left,
       y: touch.clientY - keyRect.top,
-    });
+    };
     setDragging(true);
   }
 
   function handleTouchMove(e) {
-    if (!dragging) return;
+  if (!dragging || !keyRef.current) return;
     if (!keyRef.current) return;
     const touch = e.touches[0];
     keyRef.current.style.position = "absolute";
-    keyRef.current.style.left = `${touch.clientX - touchOffset.x}px`;
-    keyRef.current.style.top = `${touch.clientY - touchOffset.y}px`;
-    e.preventDefault(); // prevent scrolling while dragging
+    keyRef.current.style.left = `${touch.clientX - touchOffsetRef.current.x}px`;
+    keyRef.current.style.top = `${touch.clientY - touchOffsetRef.current.y}px`;
+    e.preventDefault();
   }
 
   function handleTouchEnd(e) {
