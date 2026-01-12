@@ -124,7 +124,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  background: url("./assets/mystical-math-background.png")
+  background: url("./assets/mystical-math-background.png");
 }
 
 /* -----------------------HEADER--------------------------- */
@@ -173,7 +173,6 @@ html, body {
   justify-content: center;
   align-items: flex-end;
   list-style: none;
-  display: flex;
   justify-content: center;
   gap: 20px;
   padding-bottom: 10px;
@@ -613,6 +612,7 @@ main {
   border: 3px solid #1F1300;
   border-radius: 12px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
@@ -620,10 +620,6 @@ main {
   font-weight: bold;
   z-index: 1000;
   box-shadow: 0 0 10px #000000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 20px;
 }
 
@@ -948,8 +944,8 @@ main {
 
 .wizard-battle-close-button {
   position: absolute;
-  top: 20;
-  left: 20;
+  top: 20px;
+  left: 20px;
 }
 
 .mystic-shot {
@@ -1187,7 +1183,8 @@ main {
 
   .game-container {
     flex-direction: column;
-    gap: 20px;
+    gap: 2px;
+    height: auto;
   }
 
   .game-screen .top-info-bar {
@@ -1199,26 +1196,38 @@ main {
   .top-info-bar .info-text, .inventory-link-container p {
     font-size: 12px;
   }
-
   /* ---------- SCORE ---------- */
 
   .score-container {
-    width: 100%;
     align-items: center;
+    flex-direction: row;
+    margin-left: 30%;
+    width: 100%;
+    gap: 0;
   }
 
   .score-container > p {
-    font-size: 22px;
+    font-size: 12px;
+    width: 30%;
+    margin: 10px;
   }
 
   .chest-key-container {
-    justify-content: center;
+    width: 50%;
+    justify-content: flex-start;
   }
 
   .key {
     position: static;
-    height: 100px;
+    height: 60px;
     margin-top: 10px;
+  }
+
+  .key-text {
+    font-size: 10px;
+    width: 20%;
+    position: relative;
+    right: 10%;
   }
 
   /* ---------- EQUATION ---------- */
@@ -1228,8 +1237,13 @@ main {
     height: auto;
   }
 
+  .equation-container > p {
+    font-size: 11px;
+    text-align: center;
+  }
+
   .equation {
-    font-size: 36px;
+    font-size: 16px;
     padding: 20px;
     max-width: 100%;
   }
@@ -1240,9 +1254,15 @@ main {
   }
 
   .answer-button {
-    width: 55px;
-    height: 55px;
-    font-size: 22px;
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .equation-container > .game-button {
+    padding: 10px 16px;
+    font-size: 14px;
+    width: 160px;
   }
 
   /* ---------- HINT ---------- */
@@ -1254,12 +1274,17 @@ main {
     height: auto;
   }
 
+  .hint {
+    flex-direction: row;
+  }
+
   .hint img {
-    width: 140px;
+    width: 100px;
   }
 
   .chart {
-    width: 100%;
+    width: 50%;
+    margin: -200px;
   }
 
   .chart-image {
@@ -1351,7 +1376,7 @@ main {
     font-size: 16px;
   }
 
-  .header h1 {
+  .header .header-hero {
     display: none;
   }
 
@@ -1367,6 +1392,22 @@ main {
     font-size: 1.2rem;
   }
 }
+
+  .wooden-door {
+    width: 50px;
+  }
+
+  .info-text {
+    max-width: 50%;
+  }
+
+  .score-container {
+    margin-left: 5%;
+  }
+
+  .key-text {
+    right: 5%;
+  }
 
 @media (max-width: 426px) {
 
@@ -1385,5 +1426,17 @@ main {
 
   .inventory-link-container {
     flex-direction: column;;
+  }
+
+  .header h1 {
+    font-size: 10px;
+  }
+
+  .hint img {
+        width: 80px;
+    }
+
+   .key-text {
+    right: 1%;
   }
 }
