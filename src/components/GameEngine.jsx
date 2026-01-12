@@ -78,21 +78,29 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
   };
 
   function handleTouchStart(e) {
+    if (!keyRef.current) return;
     const touch = e.touches[0];
     const keyRect = keyRef.current.getBoundingClientRect();
+    keyRef.current.style.position = "absolute";
+    keyRef.current.style.left = `${keyRect.left}px`;
+    keyRef.current.style.top = `${keyRect.top}px`;
+    keyRef.current.style.right = "auto"; 
     touchOffsetRef.current = {
       x: touch.clientX - keyRect.left,
       y: touch.clientY - keyRect.top,
     };
     setDragging(true);
+    e.preventDefault();
   }
 
   function handleTouchMove(e) {
-    if (!dragging) return;
+    if (!dragging || !keyRef.current) return;
     const touch = e.touches[0];
-    keyRef.current.style.position = "absolute";
-    keyRef.current.style.left = `${touch.clientX - touchOffsetRef.current.x}px`;
-    keyRef.current.style.top = `${touch.clientY - touchOffsetRef.current.y}px`;
+    const newLeft = touch.clientX - touchOffsetRef.current.x;
+    const newTop = touch.clientY - touchOffsetRef.current.y;
+
+    keyRef.current.style.left = `${newLeft}px`;
+    keyRef.current.style.top = `${newTop}px`;
     e.preventDefault();
   }
 
