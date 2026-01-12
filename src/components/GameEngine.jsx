@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header.jsx";
 import Button from "./Button.jsx";
@@ -21,6 +21,10 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
   const [numbers, setNumbers] = useState(() => generateNumbers());
   const [displayHint, setDisplayHint] = useState("book");
   const [choices, setChoices] = useState([]);
+  const keyRef = useRef(null);
+  const chestRef = useRef(null);
+  const [dragging, setDragging] = useState(false);
+  const [touchOffset, setTouchOffset] = useState({ x: 0, y: 0 });
 
   const topNumber = numbers.top;
   const bottomNumber = numbers.bottom;
@@ -71,6 +75,64 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
       localStorage.setItem("inventory", JSON.stringify(existing));
     }
   };
+
+  function handleTouchStart(e) {
+    const touch = e.touches[0];
+    const keyRect = keyRef.current.getBoundingClientRect();
+    setTouchOffset({
+      x: touch.clientX - keyRect.left,
+      y: touch.clientY - keyRect.top,
+    });
+    setDragging(true);
+  }
+
+  function handleTouchMove(e) {
+    if (!dragging) return;
+    const touch = e.touches[0];
+    keyRef.current.style.position = "absolute";
+    keyRef.current.style.left = `${touch.clientX - touchOffset.x}px`;
+    keyRef.current.style.top = `${touch.clientY - touchOffset.y}px`;
+    e.preventDefault(); // prevent scrolling while dragging
+  }
+
+  function handleTouchEnd(e) {
+    if (!dragging) return;
+    setDragging(false);
+
+    const keyRect = keyRef.current.getBoundingClientRect();
+    const chestRect = chestRef.current.getBoundingClientRect();
+
+    // Check if key is over chest
+    if (
+      keyRect.left < chestRect.right &&
+      keyRect.right > chestRect.left &&
+      keyRect.top < chestRect.bottom &&
+      keyRect.bottom > chestRect.top
+    ) {
+      const reward = getRandomItem();
+      if (!reward) {
+        setKeyText(
+          "You've collected EVERYTHING! You're a true Mystical Master!"
+        );
+        setKey(null);
+        return;
+      }
+
+      setChestImage(reward.src);
+      setKey(null);
+      setKeyText(
+        <>
+          Congrats! You've unlocked the{" "}
+          <span className="item-name">{reward.name}</span>! This will be saved
+          in your inventory!
+        </>
+      );
+      addToInventory(reward);
+    }
+  }
+
+  
+
 
   function getRandomItem() {
     const saved = JSON.parse(localStorage.getItem("inventory")) || [];
@@ -177,16 +239,21 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
               <img
                 src={key}
                 className="key key-animate"
-                draggable={true}
+                draggable={true} // still works on desktop
                 onDragStart={(e) =>
                   e.dataTransfer.setData("text/plain", "bronzeKey")
                 }
+                onTouchStart={(e) => handleTouchStart(e)}
+                onTouchMove={(e) => handleTouchMove(e)}
+                onTouchEnd={(e) => handleTouchEnd(e)}
+                ref={keyRef}
               />
             )}
 
             <img
               src={chestImage}
               className="chest"
+              ref={chestRef}
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => {
                 const item = e.dataTransfer.getData("text/plain");
