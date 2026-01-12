@@ -88,6 +88,7 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
 
   function handleTouchMove(e) {
     if (!dragging) return;
+    if (!keyRef.current) return;
     const touch = e.touches[0];
     keyRef.current.style.position = "absolute";
     keyRef.current.style.left = `${touch.clientX - touchOffset.x}px`;
@@ -97,6 +98,7 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
 
   function handleTouchEnd(e) {
     if (!dragging) return;
+    if (!keyRef.current || !chestRef.current) return;
     setDragging(false);
 
     const keyRect = keyRef.current.getBoundingClientRect();
@@ -153,7 +155,9 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
         ? topNumber - bottomNumber
         : operator === "×"
         ? topNumber * bottomNumber
-        : topNumber / bottomNumber;
+        : bottomNumber !== 0
+        ? topNumber / bottomNumber
+        : 0;
 
     if (answer === correctValue) {
       setFeedbackModal("modal");
