@@ -29,26 +29,31 @@ export default function Header() {
 
       <div className="nav">
         <h1>Practice your math facts to earn magical creatures and items!</h1>
-
-        <ul className="nav-links">
-          <li>
-            <NavLink to="/addition-game">Addition</NavLink>
-          </li>
-          <li>
-            <NavLink to="/subtraction-game">Subtraction</NavLink>
-          </li>
-          <li>
-            <NavLink to="/multiplication-game">Multiplication</NavLink>
-          </li>
-          <li>
-            <NavLink to="/division-game">Division</NavLink>
-          </li>
-        </ul>
-
-        <PowerBar
-          value={mysticCharge}
-          onCheatFill={fillMysticCharge}
-        />
+        <div className="links-powerbar-container">
+          <div className="hamb-menu-container">
+            <button className="nav-hamb-menu">☰</button>
+          </div>
+          <ul className="nav-links">
+            <li className="home-link">
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/addition-game">Addition</NavLink>
+            </li>
+            <li>
+              <NavLink to="/subtraction-game">Subtraction</NavLink>
+            </li>
+            <li>
+              <NavLink to="/multiplication-game">Multiplication</NavLink>
+            </li>
+            <li>
+              <NavLink to="/division-game">Division</NavLink>
+            </li>
+          </ul>
+          <div className="header-powerbar-container">
+            <PowerBar value={mysticCharge} onCheatFill={fillMysticCharge} />
+          </div>
+        </div>
       </div>
 
       {mysticCharge >= 100 && (

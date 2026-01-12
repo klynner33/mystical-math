@@ -156,7 +156,7 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
       <Header />
 
       <div className="top-info-bar">
-        <div>
+        <div className="inventory-link-container">
           <p>Go to my inventory ➔</p>
           <Link to="/inventory">
             <img src={woodenDoor} alt="Wooden Door" className="wooden-door" />
