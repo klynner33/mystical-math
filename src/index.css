@@ -246,6 +246,8 @@ html, body {
 .header-powerbar-container {
   /* border: 3px solid blue; */
   position: relative;
+  /* Above overlay-blocker (9998) / battle-overlay (9999) so mystic charge stays tappable when full */
+  z-index: 10001;
 }
 
 .charge-text {
@@ -1017,6 +1019,10 @@ main {
   bottom: 0px;
   right: 80%;
   transform: translateY(10px)
+}
+
+.powerbar-container.powerbar-battle-ready {
+  cursor: pointer;
 }
 
 .wizard-powerbar-container {

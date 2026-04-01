@@ -8,20 +8,47 @@ export default function PowerBar({ value = 100, onCheatFill }) {
     setDisplayValue(value);
   }, [value]);
 
-  const handleClick = (e) => {
-    if (e.shiftKey && onCheatFill) {
+  const fillInteractive = Boolean(onCheatFill);
+
+  const handleActivate = () => {
+    if (onCheatFill) {
       onCheatFill();
     }
   };
 
+  const handleClick = () => {
+    handleActivate();
+  };
+
+  const handleKeyDown = (e) => {
+    if (!fillInteractive) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleActivate();
+    }
+  };
+
+  const title = fillInteractive
+    ? "Tap or Shift+click to fill mystic charge and open the wizard battle prompt"
+    : "Mystic charge";
+
   return (
     <div
-      className={`powerbar-container`}
+      className={`powerbar-container${fillInteractive ? " powerbar-battle-ready" : ""}`}
       onClick={handleClick}
-      title="Shift + Click to fill (dev)"
+      onKeyDown={handleKeyDown}
+      role={fillInteractive ? "button" : undefined}
+      tabIndex={fillInteractive ? 0 : undefined}
+      aria-label={fillInteractive ? "Fill mystic charge and open wizard battle" : undefined}
+      title={title}
     >
      
-      <img src={emptyBar} alt="Mystic Charge" className="powerbar-image" />
+      <img
+        src={emptyBar}
+        alt={fillInteractive ? "" : "Mystic Charge"}
+        className="powerbar-image"
+        aria-hidden={fillInteractive || undefined}
+      />
       <div className="powerbar-fill-container">
         <div
           className={`powerbar-fill ${displayValue === 100 ? "full" : ""}`}
