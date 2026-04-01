@@ -26,7 +26,7 @@ export default function Header() {
   return (
     <div className="header">
       <Link to="/">
-        <img src={hero} className="header-hero" />
+        <img src={hero} className="header-hero" alt="Mystical Math home" />
       </Link>
 
       <div className="nav">

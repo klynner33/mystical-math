@@ -1110,14 +1110,16 @@ main {
     top: 100%;
     right: 0;
     background: #111;
-    width: 100%;
+    width: max-content;
+    max-width: calc(100vw - 1.5rem);
     padding: 1rem;
+    box-sizing: border-box;
   }
 
   .nav-links.open {
     display: flex;
     z-index: 1000;
-    width: 200px;
+    width: max-content;
     height: auto;
   }
 
@@ -1226,10 +1228,13 @@ main {
     display: flex;
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 100%;
+    left: auto;
+    right: 0;
+    width: max-content;
+    max-width: calc(100vw - 1.5rem);
     background: #111;
     z-index: 1000;
+    box-sizing: border-box;
   }
 
 
@@ -1441,10 +1446,6 @@ main {
 
   .nav-links li {
     font-size: 14px;
-  }
-
-  .home-link {
-    display: none;
   }
 
   .battle-overlay h1 {
