@@ -14,7 +14,7 @@ export default function Inventory() {
     <div className="inventory-page">
       <Header />
 
-      {earnedItems.length > 0 && (
+      {/* {earnedItems.length > 0 && (
         <button
           className="reset-inventory-btn"
           onClick={() => {
@@ -24,7 +24,7 @@ export default function Inventory() {
         >
           Reset Inventory
         </button>
-      )}
+      )} */}
 
       {earnedItems.length === 0 ? (
         <p className="inventory-empty-message">

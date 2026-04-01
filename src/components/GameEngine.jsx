@@ -9,7 +9,7 @@ import bronzeKey from "../assets/inventory-images/extra-images/bronze-key.png";
 import woodenDoor from "../assets/inventory-images/extra-images/wooden-door.png";
 import inventoryItems from "../data/inventoryImages.js";
 
-export default function GameEngine({ operator, chart, generateNumbers }) {
+export default function GameEngine({ operator, chart, generateNumbers }) { 
   const [answerDisplay, setAnswerDisplay] = useState("");
   const [feedbackModal, setFeedbackModal] = useState("modal-hidden");
   const [score, setScore] = useState(0);
@@ -23,9 +23,16 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
   const [choices, setChoices] = useState([]);
   const keyRef = useRef(null);
   const chestRef = useRef(null);
-  const [dragging, setDragging] = useState(false);
-  
+  const draggingRef = useRef(false);
+
   const touchOffsetRef = useRef({ x: 0, y: 0 });
+
+  function getOffsetParentRect(el) {
+    const p = el.offsetParent;
+    if (!p) return { left: 0, top: 0 };
+    const r = p.getBoundingClientRect();
+    return { left: r.left, top: r.top };
+  }
 
   const topNumber = numbers.top;
   const bottomNumber = numbers.bottom;
@@ -80,33 +87,39 @@ export default function GameEngine({ operator, chart, generateNumbers }) {
   function handleTouchStart(e) {
     if (!keyRef.current) return;
     const touch = e.touches[0];
-    const keyRect = keyRef.current.getBoundingClientRect();
-    keyRef.current.style.position = "absolute";
-    keyRef.current.style.left = `${keyRect.left}px`;
-    keyRef.current.style.top = `${keyRect.top}px`;
-    keyRef.current.style.right = "auto"; 
+    const el = keyRef.current;
+    const keyRect = el.getBoundingClientRect();
+    const parentRect = getOffsetParentRect(el);
+    // left/top are relative to offsetParent, not the viewport — use parentRect
+    el.style.position = "absolute";
+    el.style.left = `${keyRect.left - parentRect.left}px`;
+    el.style.top = `${keyRect.top - parentRect.top}px`;
+    el.style.right = "auto";
     touchOffsetRef.current = {
       x: touch.clientX - keyRect.left,
       y: touch.clientY - keyRect.top,
     };
-    setDragging(true);
+    draggingRef.current = true;
     e.preventDefault();
   }
 
   function handleTouchMove(e) {
-    if (!dragging || !keyRef.current) return;
+    if (!draggingRef.current || !keyRef.current) return;
     const touch = e.touches[0];
-    const newLeft = touch.clientX - touchOffsetRef.current.x;
-    const newTop = touch.clientY - touchOffsetRef.current.y;
+    const el = keyRef.current;
+    const parentRect = getOffsetParentRect(el);
+    const newLeft =
+      touch.clientX - touchOffsetRef.current.x - parentRect.left;
+    const newTop = touch.clientY - touchOffsetRef.current.y - parentRect.top;
 
-    keyRef.current.style.left = `${newLeft}px`;
-    keyRef.current.style.top = `${newTop}px`;
+    el.style.left = `${newLeft}px`;
+    el.style.top = `${newTop}px`;
     e.preventDefault();
   }
 
   function handleTouchEnd(e) {
-    if (!dragging) return;
-    setDragging(false);
+    if (!draggingRef.current) return;
+    draggingRef.current = false;
 
     if (!keyRef.current || !chestRef.current) return;
     const keyRect = keyRef.current.getBoundingClientRect();
